@@ -1,4 +1,5 @@
 import getopt, sys
+import math
 import numpy as np
 from scipy.stats import norm
 from alive_progress import alive_bar
@@ -34,10 +35,10 @@ class ipe:
 def usage():
     print("Usage:  ipe.py [options]")
     print("Options:")
-    print("  -h --help       Print this help and exit")
-    print("  -N=n            Number of data points to generate defaults to n = 1000")
-    print("  -p --percentile The percentile to estimate, defaults to 0.90")
-    print("  --trace         Print the iterative estimate of the percentile, defaults to False")
+    print("  -h --help     Print this help and exit")
+    print("  -N=n          Number of data points to generate defaults to n = 1000")
+    print("  --percentile  The percentile to estimate, defaults to 0.90")
+    print("  --trace       Print the iterative estimate of the percentile, defaults to False")
 
 if __name__ == "__main__":
 
@@ -79,14 +80,20 @@ if __name__ == "__main__":
             pest.update(np.random.normal(loc = loc, scale = scale))
             print("(" + str(i) + "/" + str(N) + ") estimate: " + str(pest.est))
     else:
-        with alive_bar(N-1) as bar:
+        with alive_bar(N) as bar:
             for _ in range(N):
                 pest.update(np.random.normal(loc = loc, scale = scale))
                 bar()
 
-
-    print("Estiamte of the " + str(p*100) + "th percentile after: " + str(pest.n) + " iterations is " + str(pest.est))
-    print("Expected " + str(p*100) + "th percentile: " + str(norm.ppf(p, loc = loc, scale = scale)))
+    print("After " + str(pest.n) + " data observations")
+    print("  Estiamte of the mean " + str(pest.sumx / pest.n))
+    print("  Expected value: " + str(loc))
+    print("")
+    print("  Estiamte of the standard deviation " + str( math.sqrt((pest.sumxsq - (pest.sumx)**2 / pest.n) / (pest.n - 1) ) ))
+    print("  Expected value: " + str(scale))
+    print("")
+    print("  Estiamte of the " + str(p*100) + "th percentile is " + str(pest.est))
+    print("  Expected " + str(p*100) + "th percentile: " + str(norm.ppf(p, loc = loc, scale = scale)))
 
 
 ################################################################################
