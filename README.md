@@ -1,20 +1,20 @@
 # Iterative Percentile Estimation
 
-**Problem to solve** 
+**Problem to solve**
 
 A set of N data observations are to be created.  You are
 unable to store the N observations, but you need estimates of percentiles.
 
-**A Solution** 
+**A Solution**
 
 * Keep an estimate of the percentile starting with the first data observations.
-* For each generated data observtaion compare to the current estimate 
+* For each generated data observtaion compare to the current estimate
 
   * if current observation is less than the current estimate:
     * update estimate to a slightly smaller value
   * if current observation is greater then the current estimate:
     * update estimate to a slightly larger value
-  * if current observation is equal to the the current estimate 
+  * if current observation is equal to the the current estimate
     * do nothing
 
 The script `ipe.py` defines a class tracking this information and has some
@@ -28,9 +28,11 @@ Get the usage for the proof of concept program:
 python ipe.py -h
 ```
 
+Example use for finding the 90th percentile from 1 million observations
+
 ```bash
-$ python ipe.py --N=1000000 --percentile=0.9 
-|████████████████████████████████████████| 1000000/1000000 [100%] in 2.6s (381514.59/s) 
+$ python ipe.py --N=1000000 --percentile=0.9
+|████████████████████████████████████████| 1000000/1000000 [100%] in 2.6s (381514.59/s)
 After 1000001 data observations
   Estiamte of the mean 2.8640499937785764
   Expected value: 2.86
