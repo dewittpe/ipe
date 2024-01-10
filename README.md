@@ -21,6 +21,7 @@ The script `ipe.py` defines a class tracking this information and has some
 additional values which could be used to tracking other statistics.
 
 ## Use
+The needed modules are defined in the conda envrionment file `environment.yml`
 
 Get the usage for the proof of concept program:
 
