@@ -1,0 +1,10 @@
+name: ipe
+channels:
+  - defaults
+dependencies:
+  - python >= 3.10,<4.0
+  - numpy
+  - pip
+  - scipy
+  - pip:
+    - alive-progress
